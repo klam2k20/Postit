@@ -2,6 +2,11 @@ import { StickyNote } from "lucide-react";
 import Link from "next/link";
 import { buttonVariants } from "./ui/button";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
+import { Icons } from "./Icons";
+import { Playfair_Display } from "next/font/google";
+
+const playfair = Playfair_Display({ subsets: ["latin"] });
 
 const Navbar: React.FC = () => {
   return (
@@ -9,9 +14,12 @@ const Navbar: React.FC = () => {
       <nav className="flex w-full items-center justify-between">
         <Link
           href={"/"}
-          className="flex items-center justify-center gap-2 lg:text-xl"
+          className={cn(
+            "flex items-center justify-center gap-2 text-lg md:text-xl lg:text-2xl",
+            playfair.className,
+          )}
         >
-          <StickyNote className="h-6 w-6 lg:h-8 lg:w-8" />
+          <Icons.logo className="h-12 w-12" />
           Postit
         </Link>
 
