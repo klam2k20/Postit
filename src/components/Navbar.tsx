@@ -15,7 +15,7 @@ const Navbar: React.FC = () => {
         <Link
           href={"/"}
           className={cn(
-            "flex items-center justify-center gap-2 text-lg md:text-xl lg:text-2xl",
+            "flex items-center justify-center gap-2 text-lg leading-tight tracking-wide lg:text-2xl",
             playfair.className,
           )}
         >
