@@ -1,9 +1,10 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
 import Navbar from "@/components/Navbar";
+import type { Metadata } from "next";
+import { Playfair_Display } from "next/font/google";
+import "./globals.css";
+import { cn } from "@/lib/utils";
 
-const inter = Inter({ subsets: ["latin"] });
+const playfair = Playfair_Display({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -17,7 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} text-zinc-900`}>
+      <body className={cn("text-zinc-900", playfair.className)}>
         <Navbar />
         {children}
       </body>

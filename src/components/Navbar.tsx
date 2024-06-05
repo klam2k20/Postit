@@ -1,10 +1,8 @@
-import { StickyNote } from "lucide-react";
-import Link from "next/link";
-import { buttonVariants } from "./ui/button";
 import { cn } from "@/lib/utils";
-import Image from "next/image";
-import { Icons } from "./Icons";
 import { Playfair_Display } from "next/font/google";
+import Link from "next/link";
+import { Icons } from "./Icons";
+import { buttonVariants } from "./ui/Button";
 
 const playfair = Playfair_Display({ subsets: ["latin"] });
 
