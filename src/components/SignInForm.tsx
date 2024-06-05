@@ -56,7 +56,7 @@ const SignInForm: React.FC = () => {
         </Link>
       </div>
 
-      <div className="just-center flex w-full flex-col items-center gap-y-4">
+      <div className="flex w-full flex-col items-center gap-y-4">
         <Button className="w-full">Sign In</Button>{" "}
         <Button variant={"outline"} className="w-full border-zinc-900">
           Sign in with Google
