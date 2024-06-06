@@ -6,7 +6,7 @@ import { buttonVariants } from "./ui/Button";
 
 const playfair = Playfair_Display({ subsets: ["latin"] });
 
-const Navbar: React.FC = () => {
+const Navbar: React.FC = async () => {
   return (
     <header className="fixed inset-x-0 top-0 flex h-16 justify-center border border-b bg-zinc-100 p-4 lg:px-8">
       <nav className="flex w-full items-center justify-between">

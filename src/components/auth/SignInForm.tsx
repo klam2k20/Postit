@@ -1,23 +1,22 @@
 "use client";
 
-import Link from "next/link";
-import { Button, buttonVariants } from "./ui/Button";
+import { signIn } from "@/actions/SignInActions";
+import { TSignInSchema, signInSchema } from "@/lib/types";
 import { cn } from "@/lib/utils";
-import { Fragment } from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
-import { z } from "zod";
-import { Input } from "./ui/Input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CircleAlert } from "lucide-react";
-
-const signInSchema = z.object({
-  email: z.string().trim().email({ message: "Email is required" }),
-  password: z.string().trim().min(1, { message: "Password is required" }),
-});
-
-type TSignInSchema = z.infer<typeof signInSchema>;
+import Link from "next/link";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { Button, buttonVariants } from "../ui/Button";
+import { Input } from "../ui/Input";
+import FormError from "./FormError";
+import FormSuccess from "./FormSucess";
 
 const SignInForm: React.FC = () => {
+  const [error, setError] = useState<string | undefined>();
+  const [success, setSuccess] = useState<string | undefined>();
+
   const {
     register,
     handleSubmit,
@@ -28,7 +27,12 @@ const SignInForm: React.FC = () => {
   });
 
   const onSubmit = async (data: TSignInSchema) => {
-    await new Promise((resolve) => setTimeout(resolve, 5000));
+    setError("");
+    setSuccess("");
+    signIn(data).then((data) => {
+      setError(data.error);
+      setSuccess(data.success);
+    });
     reset();
   };
 
@@ -59,7 +63,8 @@ const SignInForm: React.FC = () => {
             {...register("email")}
             type="email"
             id="email"
-            placeholder="email"
+            placeholder="johndoe@email.com"
+            disabled={isSubmitting}
             className="border-zinc-900"
           />
           {errors.email && (
@@ -80,7 +85,8 @@ const SignInForm: React.FC = () => {
             {...register("password")}
             type="password"
             id="password"
-            placeholder="password"
+            placeholder="******"
+            disabled={isSubmitting}
             className="border-zinc-900"
           />
           {errors.password && (
@@ -104,15 +110,25 @@ const SignInForm: React.FC = () => {
         </Link>
       </div>
 
+      <FormError message={error} />
+      <FormSuccess message={success} />
       <div className="flex w-full flex-col items-center gap-y-4">
         <Button type="submit" disabled={isSubmitting} className="w-full">
           Sign In
         </Button>
-        <Button variant={"outline"} className="w-full border-zinc-900">
+        <Button
+          variant={"outline"}
+          disabled={isSubmitting}
+          className="w-full border-zinc-900"
+        >
           Sign in with Google
         </Button>
-        <Button variant={"outline"} className="w-full border-zinc-900">
-          Sign in with Github
+        <Button
+          variant={"outline"}
+          disabled={isSubmitting}
+          className="w-full border-zinc-900"
+        >
+          Sign in with GitHub
         </Button>
       </div>
     </form>
