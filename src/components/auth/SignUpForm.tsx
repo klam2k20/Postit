@@ -1,5 +1,6 @@
 "use client";
 
+import { signUp } from "@/actions/SignUpActions";
 import { TSignUpSchema, signUpSchema } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -29,7 +30,10 @@ const SignUpForm: React.FC = () => {
   const onSubmit = async (data: TSignUpSchema) => {
     setError("");
     setSuccess("");
-    console.log(data);
+    signUp(data).then((data) => {
+      setError(data.error);
+      setSuccess(data.success);
+    });
     reset();
   };
 
