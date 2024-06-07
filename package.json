@@ -10,6 +10,7 @@
     "devhttps": "next dev --experimental-https"
   },
   "dependencies": {
+    "@auth/prisma-adapter": "^2.2.0",
     "@hookform/resolvers": "^3.4.2",
     "@prisma/client": "^5.15.0",
     "@radix-ui/react-slot": "^1.0.2",
@@ -18,6 +19,7 @@
     "clsx": "^2.1.1",
     "lucide-react": "^0.383.0",
     "next": "14.2.3",
+    "next-auth": "^5.0.0-beta.19",
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.51.5",
