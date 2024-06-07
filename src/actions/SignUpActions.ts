@@ -3,10 +3,8 @@
 import db from "@/lib/db";
 import { getUserByEmail } from "@/lib/prisma";
 import { signUpSchema } from "@/lib/types";
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 
-//TODO: Encrypt pw and then create user in db
-//TODO: Update error and success messages
 export const signUp = async (values: unknown) => {
   /**
    * Revalidate sign up form inputs

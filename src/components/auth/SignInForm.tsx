@@ -29,9 +29,12 @@ const SignInForm: React.FC = () => {
   const onSubmit = async (data: TSignInSchema) => {
     setError("");
     setSuccess("");
+
     signIn(data).then((data) => {
-      setError(data.error);
-      setSuccess(data.success);
+      if (data) {
+        setError(data.error);
+        setSuccess(data.success);
+      }
     });
     reset();
   };
