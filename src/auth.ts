@@ -1,7 +1,25 @@
 import { PrismaAdapter } from "@auth/prisma-adapter";
-import NextAuth from "next-auth";
+import NextAuth, { DefaultSession } from "next-auth";
 import authConfig from "./auth.config";
 import db from "./lib/db";
+import { getUserById, updateUserUsername } from "./lib/prisma";
+import { nanoid } from "nanoid";
+
+declare module "next-auth" {
+  interface Session {
+    user: {
+      id: string,
+      username?: string | null,
+    } & DefaultSession["user"]
+  }
+}
+
+declare module "@auth/core/jwt" {
+  interface JWT {
+    id: string,
+    username?: string | null
+  }
+}
 
 const prisma = db;
 
@@ -24,7 +42,37 @@ const prisma = db;
  * which uses JWT for sessions
  */
 export const { handlers, signIn, signOut, auth } = NextAuth({
+  callbacks: {
+    async jwt({ token }) {
+      const userId = token.sub;
+      if (!userId) return token;
+
+      const user = await getUserById(userId);
+      if (!user) return token;
+
+      if (!user.username) await updateUserUsername(user.id, nanoid())
+
+      token.id = user.id;
+      token.name = user.name;
+      token.username = user.username;
+      token.email = user.email;
+      token.picture = user.image
+
+      return token;
+    },
+
+    session({ session, token }) {
+      if (token) {
+        session.user.id = token.id;
+        session.user.name = token.name;
+        session.user.username = token.username;
+        session.user.email = token.email || "";
+        session.user.image = token.picture;
+      }
+      return session;
+    },
+  },
   adapter: PrismaAdapter(prisma),
   session: { strategy: "jwt" },
-  ...authConfig
+  ...authConfig,
 })

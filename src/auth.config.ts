@@ -1,8 +1,11 @@
 import bcrypt from 'bcryptjs'
-import type { NextAuthConfig } from "next-auth"
+import { nanoid } from 'nanoid'
+import type { DefaultSession, NextAuthConfig } from "next-auth"
+import "next-auth/jwt"
 import Credentials from "next-auth/providers/credentials"
-import { getUserByEmail } from "./lib/prisma"
+import { getUserByEmail, getUserById, updateUserUsername } from "./lib/prisma"
 import { signInSchema } from "./lib/types"
+
 
 export default {
   providers: [
@@ -27,5 +30,5 @@ export default {
         return user;
       }
     })
-  ]
+  ],
 } satisfies NextAuthConfig
