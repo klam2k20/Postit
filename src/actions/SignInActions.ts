@@ -17,16 +17,23 @@ export const signIn = async (values: unknown) => {
 
   try {
     await authSignIn('credentials', { email, password, redirectTo: DEFAULT_SIGNIN_ROUTE })
+    //TODO: Send success msg after email is verified
     return { success: 'Sign in successful!' }
   } catch (e) {
     if (e instanceof AuthError) {
-      if (e.type == "CallbackRouteError")
+
+      if (e.type == "CallbackRouteError" || e.type == "CredentialsSignin")
         return { error: "Invalid email or password. Please try again." }
+      else if (e.type == "AccessDenied")
+        return {
+          error: "Please verify your email before logging in. Check your inbox for a verification link."
+        }
       else return { error: 'Something went wrong on our end. Please try again later.' }
     }
 
     /**
-     * When redirecting after a successful sign in, an error is thrown
+     * Invoking the redirect() function throws a NEXT_REDIRECT error:
+     * https://nextjs.org/docs/app/api-reference/functions/redirect#server-component
      */
     throw e;
   }

@@ -1,14 +1,27 @@
 import bcrypt from 'bcryptjs'
-import { nanoid } from 'nanoid'
-import type { DefaultSession, NextAuthConfig } from "next-auth"
+import type { NextAuthConfig } from "next-auth"
 import "next-auth/jwt"
 import Credentials from "next-auth/providers/credentials"
-import { getUserByEmail, getUserById, updateUserUsername } from "./lib/prisma"
+import GitHub from "next-auth/providers/github"
+import Google from "next-auth/providers/google"
+import { getUserByEmail } from "./lib/prisma"
 import { signInSchema } from "./lib/types"
 
 
 export default {
+  pages: {
+    signIn: '/sign-in',
+    error: '/auth-error'
+  },
   providers: [
+    GitHub({
+      clientId: process.env.GITHUB_ID,
+      clientSecret: process.env.GITHUB_SECRET
+    }),
+    Google({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET
+    }),
     Credentials({
       /**
        * Validate the given email/password

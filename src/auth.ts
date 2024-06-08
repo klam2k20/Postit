@@ -42,21 +42,43 @@ const prisma = db;
  * which uses JWT for sessions
  */
 export const { handlers, signIn, signOut, auth } = NextAuth({
+  events: {
+    async linkAccount({ user }) {
+      if (!user.id) return;
+      await db.user.update({
+        where: {
+          id: user.id
+        },
+        data: {
+          emailVerified: new Date()
+        }
+      })
+    }
+  },
   callbacks: {
+    // async signIn({ user }) {
+    //   if (user.id) {
+    //     const existingUser = await getUserById(user.id);
+    //     if (!existingUser || !existingUser.emailVerified) return false;
+    //     return true;
+    //   }
+
+    //   return false;
+    // },
     async jwt({ token }) {
       const userId = token.sub;
       if (!userId) return token;
 
-      const user = await getUserById(userId);
-      if (!user) return token;
+      const existingUser = await getUserById(userId);
+      if (!existingUser) return token;
 
-      if (!user.username) await updateUserUsername(user.id, nanoid())
+      if (!existingUser.username) await updateUserUsername(existingUser.id, nanoid())
 
-      token.id = user.id;
-      token.name = user.name;
-      token.username = user.username;
-      token.email = user.email;
-      token.picture = user.image
+      token.id = existingUser.id;
+      token.name = existingUser.name;
+      token.username = existingUser.username;
+      token.email = existingUser.email;
+      token.picture = existingUser.image
 
       return token;
     },
