@@ -1,9 +1,9 @@
 import { PrismaAdapter } from "@auth/prisma-adapter";
+import { nanoid } from "nanoid";
 import NextAuth, { DefaultSession } from "next-auth";
 import authConfig from "./auth.config";
 import db from "./lib/db";
-import { getUserById, updateUserUsername } from "./lib/prisma";
-import { nanoid } from "nanoid";
+import { getUserById } from "./lib/prisma";
 
 declare module "next-auth" {
   interface Session {
@@ -56,15 +56,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     }
   },
   callbacks: {
-    // async signIn({ user }) {
-    //   if (user.id) {
-    //     const existingUser = await getUserById(user.id);
-    //     if (!existingUser || !existingUser.emailVerified) return false;
-    //     return true;
-    //   }
-
-    //   return false;
-    // },
     async jwt({ token }) {
       const userId = token.sub;
       if (!userId) return token;
@@ -72,7 +63,19 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       const existingUser = await getUserById(userId);
       if (!existingUser) return token;
 
-      if (!existingUser.username) await updateUserUsername(existingUser.id, nanoid())
+      /**
+       * Set random username when first signing in
+       */
+      if (!existingUser.username) {
+        await db.user.update({
+          where: {
+            id: existingUser.id
+          },
+          data: {
+            username: nanoid()
+          }
+        })
+      }
 
       token.id = existingUser.id;
       token.name = existingUser.name;

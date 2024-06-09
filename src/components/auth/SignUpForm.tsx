@@ -5,7 +5,6 @@ import { TSignUpSchema, signUpSchema } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Button, buttonVariants } from "../ui/Button";
@@ -19,13 +18,6 @@ import SocialLogins from "./SocialLogins";
 const SignUpForm: React.FC = () => {
   const [error, setError] = useState<string | undefined>();
   const [success, setSuccess] = useState<string | undefined>();
-  const searchParamError = useSearchParams().get("error");
-  const socialLoginError =
-    searchParamError == "OAuthAccountNotLinked"
-      ? "This email address is already registered. Please sign in."
-      : searchParamError
-        ? "Something went wrong on our end. Please try again later."
-        : "";
 
   const {
     register,
@@ -39,11 +31,18 @@ const SignUpForm: React.FC = () => {
   const onSubmit = async (data: TSignUpSchema) => {
     setError("");
     setSuccess("");
-    signUp(data).then((data) => {
-      setError(data.error);
-      setSuccess(data.success);
-    });
-    reset();
+
+    try {
+      const response = await signUp(data);
+      if (response?.error) {
+        setError(response?.error);
+      } else if (response?.success) {
+        setSuccess(response?.success);
+        reset();
+      }
+    } catch (e) {
+      setError("Something went wrong on our end. Please try again later.");
+    }
   };
 
   return (
@@ -144,7 +143,7 @@ const SignUpForm: React.FC = () => {
           </div>
         </div>
 
-        <FormError message={error || socialLoginError} />
+        <FormError message={error} />
         <FormSuccess message={success} />
 
         <Button type="submit" disabled={isSubmitting} className="w-full">

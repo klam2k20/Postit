@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CircleAlert } from "lucide-react";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Button, buttonVariants } from "../ui/Button";
@@ -16,15 +16,9 @@ import FormSuccess from "./FormSucess";
 import SocialLogins from "./SocialLogins";
 
 const SignInForm: React.FC = () => {
+  const router = useRouter();
   const [error, setError] = useState<string | undefined>();
   const [success, setSuccess] = useState<string | undefined>();
-  const searchParamError = useSearchParams().get("error");
-  const socialLoginError =
-    searchParamError == "OAuthAccountNotLinked"
-      ? "This email address is already registered. Please sign in."
-      : searchParamError
-        ? "Something went wrong on our end. Please try again later."
-        : "";
 
   const {
     register,
@@ -36,17 +30,21 @@ const SignInForm: React.FC = () => {
   });
 
   const onSubmit = async (data: TSignInSchema) => {
-    console.log("submit");
     setError("");
     setSuccess("");
 
-    signIn(data).then((data) => {
-      if (data) {
-        setError(data.error);
-        setSuccess(data.success);
+    try {
+      const response = await signIn(data);
+      if (response?.error) {
+        setError(response?.error);
+      } else if (response?.success) {
+        setSuccess(response?.success);
+        router.push("/");
+        reset();
       }
-    });
-    reset();
+    } catch (e) {
+      setError("Something went wrong on our end. Please try again later.");
+    }
   };
 
   return (
@@ -124,7 +122,7 @@ const SignInForm: React.FC = () => {
           </Link>
         </div>
 
-        <FormError message={error || socialLoginError} />
+        <FormError message={error} />
         <FormSuccess message={success} />
 
         <Button type="submit" disabled={isSubmitting} className="w-full">

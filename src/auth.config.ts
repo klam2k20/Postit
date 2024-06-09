@@ -16,11 +16,13 @@ export default {
   providers: [
     GitHub({
       clientId: process.env.GITHUB_ID,
-      clientSecret: process.env.GITHUB_SECRET
+      clientSecret: process.env.GITHUB_SECRET,
+      allowDangerousEmailAccountLinking: true
     }),
     Google({
       clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      allowDangerousEmailAccountLinking: true
     }),
     Credentials({
       /**
@@ -40,6 +42,7 @@ export default {
         const isValidPassword = await bcrypt.compare(password, user.password)
         if (!isValidPassword) throw new Error('Invalid credentials')
 
+        if (!user.emailVerified) throw new Error('Please verify your email before logging in. Check your inbox for a verification link.')
         return user;
       }
     })

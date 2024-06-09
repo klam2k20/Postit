@@ -1,10 +1,10 @@
 "use server"
 
 import { signIn as authSignIn } from '@/auth';
+import { getUserByEmail } from '@/lib/prisma';
 
 import { signInSchema } from "@/lib/types";
-import { DEFAULT_SIGNIN_ROUTE } from '@/routes';
-import { AuthError } from 'next-auth';
+import bcrypt from 'bcryptjs';
 
 export const signIn = async (values: unknown) => {
   /**
@@ -16,25 +16,27 @@ export const signIn = async (values: unknown) => {
   const { email, password } = validatedFields.data;
 
   try {
-    await authSignIn('credentials', { email, password, redirectTo: DEFAULT_SIGNIN_ROUTE })
-    //TODO: Send success msg after email is verified
-    return { success: 'Sign in successful!' }
-  } catch (e) {
-    if (e instanceof AuthError) {
+    /**
+     * Validate credentials before calling signIn from Auth to 
+     * prevent error
+     */
 
-      if (e.type == "CallbackRouteError" || e.type == "CredentialsSignin")
-        return { error: "Invalid email or password. Please try again." }
-      else if (e.type == "AccessDenied")
-        return {
-          error: "Please verify your email before logging in. Check your inbox for a verification link."
-        }
-      else return { error: 'Something went wrong on our end. Please try again later.' }
-    }
+    const user = await getUserByEmail(email);
+
+    if (!user || !user.password) return { error: "Invalid email or password. Please try again." }
+
+    const isValidPassword = await bcrypt.compare(password, user.password)
+    if (!isValidPassword) return { error: "Invalid email or password. Please try again." }
 
     /**
-     * Invoking the redirect() function throws a NEXT_REDIRECT error:
-     * https://nextjs.org/docs/app/api-reference/functions/redirect#server-component
+     * Verify the email is verified
      */
-    throw e;
+    if (!user.emailVerified) return { error: 'Please verify your email before logging in. Check your inbox for a verification link.' }
+
+    await authSignIn('credentials', { email, password, redirect: false })
+    return { success: 'Sign in successful!' }
+  } catch (e) {
+    console.error('Sign In Error:', e);
+    return { error: 'Something went wrong on our end. Please try again later.' }
   }
 }
