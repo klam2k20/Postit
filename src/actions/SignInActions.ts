@@ -1,7 +1,7 @@
 "use server"
 
 import { signIn as authSignIn } from '@/auth';
-import { getUserByEmail } from '@/lib/prisma';
+import { createVerificationToken, getUserByEmail } from '@/lib/prisma';
 
 import { signInSchema } from "@/lib/types";
 import bcrypt from 'bcryptjs';
@@ -31,8 +31,10 @@ export const signIn = async (values: unknown) => {
     /**
      * Verify the email is verified
      */
-    if (!user.emailVerified) return { error: 'Please verify your email before logging in. Check your inbox for a verification link.' }
-
+    if (!user.emailVerified) {
+      const token = await createVerificationToken(email);
+      return { success: 'A new verification link has been sent to your email. Please check your email to verify your account.' }
+    }
     await authSignIn('credentials', { email, password, redirect: false })
     return { success: 'Sign in successful!' }
   } catch (e) {

@@ -1,7 +1,7 @@
 "use server"
 
 import db from "@/lib/db";
-import { getUserByEmail } from "@/lib/prisma";
+import { createVerificationToken, getUserByEmail } from "@/lib/prisma";
 import { signUpSchema } from "@/lib/types";
 import bcrypt from 'bcryptjs';
 
@@ -36,6 +36,8 @@ export const signUp = async (values: unknown) => {
         password: hashedPassword
       }
     })
+
+    const token = await createVerificationToken(email);
 
     return { success: 'Registration successful! Please check your email to verify your account.' }
   } catch (e) {
