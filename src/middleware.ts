@@ -10,6 +10,7 @@ export default auth((req) => {
   const isAPIAuthPrefix = nextUrl.pathname.startsWith(API_AUTH_PREFIX);
   const isPublicRoute = PUBLIC_ROUTES.includes(nextUrl.pathname);
   const isAuthRoute = AUTH_ROUTES.includes(nextUrl.pathname);
+  console.log(nextUrl.pathname)
 
   if (isAPIAuthPrefix) return;
   if (isAuthRoute) {

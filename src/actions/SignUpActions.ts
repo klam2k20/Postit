@@ -1,6 +1,7 @@
 "use server"
 
 import db from "@/lib/db";
+import { sendVerificationEmail } from "@/lib/email";
 import { createVerificationToken, getUserByEmail } from "@/lib/prisma";
 import { signUpSchema } from "@/lib/types";
 import bcrypt from 'bcryptjs';
@@ -38,6 +39,7 @@ export const signUp = async (values: unknown) => {
     })
 
     const token = await createVerificationToken(email);
+    await sendVerificationEmail(email, token.token)
 
     return { success: 'Registration successful! Please check your email to verify your account.' }
   } catch (e) {
