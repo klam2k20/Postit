@@ -15,6 +15,7 @@ import FormError from "./FormError";
 import FormSuccess from "./FormSucess";
 import SocialLogins from "./SocialLogins";
 
+//todo: loading animation for login buttons
 const SignInForm: React.FC = () => {
   const router = useRouter();
   const [error, setError] = useState<string | undefined>();
