@@ -113,7 +113,7 @@ const SignInForm: React.FC = () => {
           </div>
 
           <Link
-            href={"/sign-up"}
+            href={"/forgot-password"}
             className={cn(
               buttonVariants({ variant: "link" }),
               "-mt-2 h-fit items-end self-end p-0 text-sm",

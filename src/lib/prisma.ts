@@ -46,3 +46,29 @@ export const createVerificationToken = async (email: string) => {
 
   return newToken;
 }
+
+export const createForgotPasswordToken = async (email: string) => {
+  let existingToken = await db.forgotPasswordToken.findFirst({
+    where: {
+      email: email
+    }
+  })
+
+  if (existingToken) {
+    await db.forgotPasswordToken.delete({
+      where: {
+        id: existingToken.id
+      }
+    })
+  }
+
+  const newToken = await db.verificationToken.create({
+    data: {
+      email,
+      token: nanoid(),
+      expires: new Date(new Date().getTime() + 3600 * 1000)
+    }
+  })
+
+  return newToken;
+}

@@ -15,6 +15,8 @@ import SocialLogins from "./SocialLogins";
 
 //TODO: Show password
 //TODO: Add Google and GitHub icons to sign in options
+//TODO: Display form as long as theres no success if success just show the success msg to confirm
+// email
 const SignUpForm: React.FC = () => {
   const [error, setError] = useState<string | undefined>();
   const [success, setSuccess] = useState<string | undefined>();

@@ -32,5 +32,14 @@ export const signUpSchema = z.object({
     .trim()
 }).refine((data) => data.confirmPassword === data.password, { message: "Passwords don't match", path: ["confirmPassword"] })
 
+
+export const forgotPasswordSchema = z.object({
+  email: z
+    .string()
+    .trim()
+    .email({ message: "Email is required" }),
+});
+
 export type TSignInSchema = z.infer<typeof signInSchema>;
 export type TSignUpSchema = z.infer<typeof signUpSchema>;
+export type TForgotPasswordSchema = z.infer<typeof forgotPasswordSchema>
