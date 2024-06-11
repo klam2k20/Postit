@@ -40,6 +40,18 @@ export const forgotPasswordSchema = z.object({
     .email({ message: "Email is required" }),
 });
 
+export const resetPasswordSchema = z.object({
+  password: z
+    .string()
+    .trim()
+    .regex(passwordRegex, { message: "Password must be 6-50 characters long, contain at least one uppercase letter, and one special character" }),
+  confirmPassword: z
+    .string()
+    .trim()
+}).refine((data) => data.confirmPassword === data.password, { message: "Passwords don't match", path: ["confirmPassword"] })
+
+
 export type TSignInSchema = z.infer<typeof signInSchema>;
 export type TSignUpSchema = z.infer<typeof signUpSchema>;
 export type TForgotPasswordSchema = z.infer<typeof forgotPasswordSchema>
+export type TResetPasswordSchema = z.infer<typeof resetPasswordSchema>

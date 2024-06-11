@@ -62,7 +62,7 @@ export const createForgotPasswordToken = async (email: string) => {
     })
   }
 
-  const newToken = await db.verificationToken.create({
+  const newToken = await db.forgotPasswordToken.create({
     data: {
       email,
       token: nanoid(),

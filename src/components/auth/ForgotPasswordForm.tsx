@@ -27,7 +27,6 @@ const ForgotPasswordForm: React.FC = () => {
   const onSubmit = async (data: TForgotPasswordSchema) => {
     setError("");
     setSuccess("");
-    console.log("FORGOT PASSWORD DUMMY?");
 
     try {
       const response = await forgotPassword(data);
@@ -49,12 +48,9 @@ const ForgotPasswordForm: React.FC = () => {
       {!success ? (
         <>
           <div className="mb-4 flex flex-col items-start gap-y-2">
-            <h1 className="text-2xl font-semibold leading-none">
-              Forgot Password?
-            </h1>
             <p className="text-sm text-zinc-700">
-              Enter your email and we&apos;ll send you a link to reset your
-              password
+              Enter the email associated with your account and we&apos;ll send
+              you a link to reset your password
             </p>
           </div>
           <div className="flex w-full flex-col gap-y-2">
@@ -80,7 +76,7 @@ const ForgotPasswordForm: React.FC = () => {
           </div>
           <FormError message={error} />
           <Button type="submit" disabled={isSubmitting} className="w-full">
-            Send link to email
+            Continue
           </Button>
         </>
       ) : (
