@@ -3,12 +3,16 @@ import { Playfair_Display } from "next/font/google";
 import Link from "next/link";
 import { Icons } from "./Icons";
 import { buttonVariants } from "./ui/Button";
+import { auth } from "@/auth";
+import UserMenu from "./UserMenu";
 
 const playfair = Playfair_Display({ subsets: ["latin"] });
 
 const Navbar: React.FC = async () => {
+  const session = await auth();
+
   return (
-    <header className="fixed inset-x-0 top-0 flex h-16 justify-center border border-b bg-zinc-100 p-4 lg:px-8">
+    <header className="fixed inset-x-0 top-0 flex h-16 justify-center border border-b p-4 lg:px-8">
       <nav className="flex w-full items-center justify-between">
         <Link
           href={"/"}
@@ -21,9 +25,13 @@ const Navbar: React.FC = async () => {
           Postit
         </Link>
 
-        <Link className={cn(buttonVariants())} href={"/sign-in"}>
-          Sign In
-        </Link>
+        {session && session.user ? (
+          <UserMenu user={session.user} />
+        ) : (
+          <Link className={cn(buttonVariants())} href={"/sign-in"}>
+            Sign In
+          </Link>
+        )}
       </nav>
     </header>
   );

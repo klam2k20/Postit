@@ -41,6 +41,7 @@ const SignInForm: React.FC = () => {
       } else if (response?.success) {
         setSuccess(response?.success);
         router.push("/");
+        router.refresh();
         reset();
       }
     } catch (e) {
