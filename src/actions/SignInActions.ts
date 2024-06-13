@@ -5,6 +5,7 @@ import { sendVerificationEmail } from '@/lib/email';
 import { createVerificationToken, getUserByEmail } from '@/lib/prisma';
 
 import { signInSchema } from "@/lib/types";
+import { DEFAULT_SIGNIN_ROUTE } from '@/routes';
 import bcrypt from 'bcryptjs';
 
 export const signIn = async (values: unknown) => {
@@ -37,10 +38,13 @@ export const signIn = async (values: unknown) => {
       await sendVerificationEmail(email, token.token)
       return { success: 'A new verification link has been sent to your email. Please check your email to verify your account.' }
     }
-    await authSignIn('credentials', { email, password, redirect: false })
+    await authSignIn('credentials', { email, password, redirectTo: DEFAULT_SIGNIN_ROUTE })
     return { success: 'Sign in successful!' }
   } catch (e) {
-    console.error('Sign In Error:', e);
-    return { error: 'Something went wrong on our end. Please try again later.' }
+    /**
+     * Using redirectTo in signIn throws a NEXT_REDIRECT error:
+     * https://nextjs.org/docs/app/api-reference/functions/redirect#server-component
+     */
+    throw e;
   }
 }
