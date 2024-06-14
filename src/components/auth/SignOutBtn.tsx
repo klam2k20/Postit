@@ -1,6 +1,7 @@
 "use client";
 
 import { signOut } from "next-auth/react";
+import { BsArrowRightSquare } from "react-icons/bs";
 import { DropdownMenuItem } from "../ui/DropdownMenu";
 
 const SignOutBtn: React.FC = () => {
@@ -12,8 +13,11 @@ const SignOutBtn: React.FC = () => {
   };
 
   return (
-    <DropdownMenuItem onSelect={(e) => handleSignOut(e)}>
-      Sign out
+    <DropdownMenuItem onSelect={(e) => handleSignOut(e)} asChild>
+      <div className="flex cursor-pointer !items-end justify-start gap-2">
+        <BsArrowRightSquare className="h-5 w-5" />
+        Sign out
+      </div>
     </DropdownMenuItem>
   );
 };

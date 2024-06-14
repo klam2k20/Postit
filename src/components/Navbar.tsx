@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Icons } from "./Icons";
 import { buttonVariants } from "./ui/Button";
 import { auth } from "@/auth";
-import UserMenu from "./UserMenu";
+import UserMenu from "./userMenu/UserMenu";
 
 const playfair = Playfair_Display({ subsets: ["latin"] });
 

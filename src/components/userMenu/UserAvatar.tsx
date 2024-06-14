@@ -1,17 +1,19 @@
-import { getInitials } from "@/lib/utils";
+import { cn, getInitials } from "@/lib/utils";
 import { FiUser } from "react-icons/fi";
 import { User } from "next-auth";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/Avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/Avatar";
+import { AvatarProps } from "@radix-ui/react-avatar";
 
-interface IUserAvatarProps {
+interface IUserAvatarProps extends AvatarProps {
   user: Pick<User, "name" | "image">;
 }
 
 const UserAvatar: React.FunctionComponent<IUserAvatarProps> = ({
   user,
+  className,
 }: IUserAvatarProps) => {
   return (
-    <Avatar className="border border-zinc-900">
+    <Avatar className={cn("border border-zinc-900", className)}>
       <AvatarImage src={user?.image || ""} alt="User Avatar" />
 
       {user.name ? (
