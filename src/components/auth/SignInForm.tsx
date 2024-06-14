@@ -4,9 +4,9 @@ import { signIn } from "@/actions/SignInActions";
 import { TSignInSchema, signInSchema } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CircleAlert } from "lucide-react";
+import { FiAlertCircle } from "react-icons/fi";
+
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Button, buttonVariants } from "../ui/Button";
@@ -17,7 +17,6 @@ import SocialLogins from "./SocialLogins";
 
 //todo: loading animation for login buttons
 const SignInForm: React.FC = () => {
-  const router = useRouter();
   const [error, setError] = useState<string | undefined>();
   const [success, setSuccess] = useState<string | undefined>();
 
@@ -81,7 +80,7 @@ const SignInForm: React.FC = () => {
             />
             {errors.email && (
               <div className="flex items-end justify-start gap-1">
-                <CircleAlert className="h-5 w-5 text-red-500" />
+                <FiAlertCircle className="h-5 w-5 text-red-500" />
                 <p className="-mt-2 text-sm text-red-500">
                   {errors.email.message}
                 </p>
@@ -103,7 +102,7 @@ const SignInForm: React.FC = () => {
             />
             {errors.password && (
               <div className="flex items-end justify-start gap-1">
-                <CircleAlert className="h-5 w-5 text-red-500" />
+                <FiAlertCircle className="h-5 w-5 text-red-500" />
                 <p className="-mt-2 text-sm text-red-500">
                   {errors.password.message}
                 </p>

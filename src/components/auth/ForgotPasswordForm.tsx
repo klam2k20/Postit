@@ -3,7 +3,7 @@
 import { forgotPassword } from "@/actions/ForgotPasswordActions";
 import { TForgotPasswordSchema, forgotPasswordSchema } from "@/lib/types";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CircleAlert } from "lucide-react";
+import { FiAlertCircle } from "react-icons/fi";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Button } from "../ui/Button";
@@ -67,7 +67,7 @@ const ForgotPasswordForm: React.FC = () => {
             />
             {errors.email && (
               <div className="flex items-end justify-start gap-1">
-                <CircleAlert className="h-5 w-5 text-red-500" />
+                <FiAlertCircle className="h-5 w-5 text-red-500" />
                 <p className="-mt-2 text-sm text-red-500">
                   {errors.email.message}
                 </p>

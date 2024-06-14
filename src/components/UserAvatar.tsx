@@ -1,5 +1,5 @@
 import { getInitials } from "@/lib/utils";
-import { User as UserIcon } from "lucide-react";
+import { FiUser } from "react-icons/fi";
 import { User } from "next-auth";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/Avatar";
 
@@ -18,7 +18,7 @@ const UserAvatar: React.FunctionComponent<IUserAvatarProps> = ({
         <AvatarFallback>{getInitials(user.name)}</AvatarFallback>
       ) : (
         <AvatarFallback>
-          <UserIcon />
+          <FiUser className="h-6 w-6" />
         </AvatarFallback>
       )}
     </Avatar>
