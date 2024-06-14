@@ -18,7 +18,6 @@ interface IUserMenuProps {
   user: Pick<User, "name" | "image" | "email">;
 }
 
-//TODO: Add icons
 const UserMenu: React.FunctionComponent<IUserMenuProps> = ({
   user,
 }: IUserMenuProps) => {

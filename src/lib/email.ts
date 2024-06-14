@@ -14,7 +14,6 @@ export const sendVerificationEmail = async (email: string, token: string) => {
   });
 }
 
-//TODO: Change to email after domain is created for Resend
 export const sendForgotPasswordEmail = async (email: string, token: string) => {
   const link = `http://localhost:3000/reset-password?token=${token}`
   await resend.emails.send({

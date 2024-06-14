@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FiAlertCircle } from "react-icons/fi";
 
+import { ReloadIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -13,9 +14,9 @@ import { Button, buttonVariants } from "../ui/Button";
 import { Input } from "../ui/Input";
 import FormError from "./FormError";
 import FormSuccess from "./FormSucess";
+import { PasswordInput } from "./PasswordInput";
 import SocialLogins from "./SocialLogins";
 
-//todo: loading animation for login buttons
 const SignInForm: React.FC = () => {
   const [error, setError] = useState<string | undefined>();
   const [success, setSuccess] = useState<string | undefined>();
@@ -92,14 +93,7 @@ const SignInForm: React.FC = () => {
             <label htmlFor="password" className="text-sm font-semibold">
               Password
             </label>
-            <Input
-              {...register("password")}
-              type="password"
-              id="password"
-              placeholder="******"
-              disabled={isSubmitting}
-              className="border-zinc-900"
-            />
+            <PasswordInput {...register("password")} disabled={isSubmitting} />
             {errors.password && (
               <div className="flex items-end justify-start gap-1">
                 <FiAlertCircle className="h-5 w-5 text-red-500" />
@@ -125,6 +119,7 @@ const SignInForm: React.FC = () => {
         <FormSuccess message={success} />
 
         <Button type="submit" disabled={isSubmitting} className="w-full">
+          {isSubmitting && <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />}
           Sign In
         </Button>
       </form>

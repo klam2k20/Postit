@@ -12,10 +12,10 @@ import { Input } from "../ui/Input";
 import FormError from "./FormError";
 import FormSuccess from "./FormSucess";
 import SocialLogins from "./SocialLogins";
+import { PasswordInput } from "./PasswordInput";
+import { ReloadIcon } from "@radix-ui/react-icons";
 
-//TODO: Show password
-//TODO: Add Google and GitHub icons to sign in options
-//TODO: Display form as long as theres no success if success just show the success msg to confirm
+//TODO: switch from formerror and formsuccess to toast
 // email
 const SignUpForm: React.FC = () => {
   const [error, setError] = useState<string | undefined>();
@@ -110,14 +110,7 @@ const SignUpForm: React.FC = () => {
             <label htmlFor="password" className="text-sm font-semibold">
               Password
             </label>
-            <Input
-              {...register("password")}
-              type="password"
-              id="password"
-              placeholder="******"
-              disabled={isSubmitting}
-              className="border-zinc-900"
-            />
+            <PasswordInput {...register("password")} disabled={isSubmitting} />
             {errors.password && (
               <p className="-mt-2 text-sm text-red-500">
                 {errors.password.message}
@@ -129,13 +122,9 @@ const SignUpForm: React.FC = () => {
             <label htmlFor="confirmPassword" className="text-sm font-semibold">
               Confirm Password
             </label>
-            <Input
+            <PasswordInput
               {...register("confirmPassword")}
-              type="password"
-              id="confirmPassword"
-              placeholder="******"
               disabled={isSubmitting}
-              className="border-zinc-900"
             />
             {errors.confirmPassword && (
               <p className="-mt-2 text-sm text-red-500">
@@ -149,6 +138,7 @@ const SignUpForm: React.FC = () => {
         <FormSuccess message={success} />
 
         <Button type="submit" disabled={isSubmitting} className="w-full">
+          {isSubmitting && <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />}
           Sign Up
         </Button>
       </form>
