@@ -19,7 +19,7 @@ export const sendForgotPasswordEmail = async (email: string, token: string) => {
   await resend.emails.send({
     from: 'onboarding@resend.dev',
     to: 'lam.ke.nyc@gmail.com',
-    subject: 'Reset Your Postit Password',
-    html: `<p>A request has been made to reset your password. If you made this request, please click on the following <a href=${link}>link</a>`
+    subject: '[Postit] Please reset your password',
+    html: `<p>We heard that you lost your Postit password. Sorry about that! But don&apos;t worry! You can use the following  <a href=${link}>link</a> to reset your password. `
   });
 }

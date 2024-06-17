@@ -19,7 +19,7 @@ export const forgotPassword = async (values: unknown) => {
     const newToken = await createForgotPasswordToken(email);
 
     await sendForgotPasswordEmail(email, newToken.token)
-    return { success: 'Password reset link sent! Please check your email to proceed.' }
+    return { success: 'Check your email for a link to reset your password. If it doesn’t appear within a few minutes, check your spam folder.' }
   }
   catch (e) {
     console.error('Forgot Password Error: ', e)

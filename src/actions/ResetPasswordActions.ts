@@ -36,7 +36,7 @@ export const resetPassword = async (values: unknown, token: string) => {
       where: { id: forgotPasswordToken.id }
     })
 
-    return { success: 'Password reset' }
+    return { success: 'New password set successfully.' }
   } catch (e) {
     console.error('Reset Password Error: ', e);
     return { error: 'Something went wrong on our end. Please try again later.' }
