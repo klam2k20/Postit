@@ -15,7 +15,6 @@ import { cn } from "@/lib/utils";
 import { PasswordInput } from "./PasswordInput";
 import { Icons } from "../Icons";
 
-//todo: go through all the forms and add back buttons
 const ResetPasswordForm: React.FC = () => {
   const [error, setError] = useState<string | undefined>();
   const [success, setSuccess] = useState<string | undefined>();

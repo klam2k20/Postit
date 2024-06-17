@@ -15,8 +15,6 @@ import SocialLogins from "./SocialLogins";
 import { PasswordInput } from "./PasswordInput";
 import { Icons } from "../Icons";
 
-//TODO: switch from formerror and formsuccess to toast
-// email
 const SignUpForm: React.FC = () => {
   const [error, setError] = useState<string | undefined>();
   const [success, setSuccess] = useState<string | undefined>();
@@ -48,25 +46,20 @@ const SignUpForm: React.FC = () => {
   };
 
   return (
-    <div className="flex w-[400px] flex-col items-start justify-center gap-y-4 px-6 sm:px-8 sm:py-6">
+    <>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex w-full flex-col items-start justify-center gap-y-8"
+        className="flex w-full flex-col items-start justify-center gap-y-6"
       >
-        <div className="flex flex-col items-start gap-y-2">
-          <h1 className="text-2xl font-semibold leading-none">
-            Create an Account
-          </h1>
-          <p className="text-sm text-zinc-700">
-            Already have an account?{" "}
-            <Link
-              href={"/sign-in"}
-              className={cn(buttonVariants({ variant: "link" }), "h-fit p-0")}
-            >
-              Sign in.
-            </Link>
-          </p>
-        </div>
+        <p className="text-sm text-zinc-700">
+          Already have an account?{" "}
+          <Link
+            href={"/sign-in"}
+            className={cn(buttonVariants({ variant: "link" }), "h-fit p-0")}
+          >
+            Sign in.
+          </Link>
+        </p>
 
         <div className="flex w-full flex-col items-start gap-y-4">
           <div className="flex w-full flex-col gap-y-2">
@@ -139,7 +132,7 @@ const SignUpForm: React.FC = () => {
         </Button>
       </form>
       <SocialLogins isSubmitting={isSubmitting} />
-    </div>
+    </>
   );
 };
 
