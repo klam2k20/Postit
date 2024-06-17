@@ -4,9 +4,7 @@ import { signIn } from "@/actions/SignInActions";
 import { TSignInSchema, signInSchema } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FiAlertCircle } from "react-icons/fi";
 
-import { ReloadIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -16,6 +14,7 @@ import FormError from "./FormError";
 import FormSuccess from "./FormSucess";
 import { PasswordInput } from "./PasswordInput";
 import SocialLogins from "./SocialLogins";
+import { Icons } from "../Icons";
 
 const SignInForm: React.FC = () => {
   const [error, setError] = useState<string | undefined>();
@@ -80,46 +79,39 @@ const SignInForm: React.FC = () => {
               className="border-zinc-900"
             />
             {errors.email && (
-              <div className="flex items-end justify-start gap-1">
-                <FiAlertCircle className="h-5 w-5 text-red-500" />
-                <p className="-mt-2 text-sm text-red-500">
-                  {errors.email.message}
-                </p>
-              </div>
+              <p className="text-sm text-red-500">{errors.email.message}</p>
             )}
           </div>
 
           <div className="flex w-full flex-col gap-y-2">
-            <label htmlFor="password" className="text-sm font-semibold">
-              Password
-            </label>
+            <div className="flex w-full items-center justify-between">
+              <label htmlFor="password" className="text-sm font-semibold">
+                Password
+              </label>
+              <Link
+                href={"/forgot-password"}
+                className={cn(
+                  buttonVariants({ variant: "link" }),
+                  "h-fit p-0 text-sm",
+                )}
+              >
+                Forgot Password?
+              </Link>
+            </div>
             <PasswordInput {...register("password")} disabled={isSubmitting} />
             {errors.password && (
-              <div className="flex items-end justify-start gap-1">
-                <FiAlertCircle className="h-5 w-5 text-red-500" />
-                <p className="-mt-2 text-sm text-red-500">
-                  {errors.password.message}
-                </p>
-              </div>
+              <p className="text-sm text-red-500">{errors.password.message}</p>
             )}
           </div>
-
-          <Link
-            href={"/forgot-password"}
-            className={cn(
-              buttonVariants({ variant: "link" }),
-              "-mt-2 h-fit items-end self-end p-0 text-sm",
-            )}
-          >
-            Forgot Password
-          </Link>
         </div>
 
         <FormError message={error} />
         <FormSuccess message={success} />
 
         <Button type="submit" disabled={isSubmitting} className="w-full">
-          {isSubmitting && <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />}
+          {isSubmitting && (
+            <Icons.loader className="mr-2 h-4 w-4 animate-spin" />
+          )}
           Sign In
         </Button>
       </form>

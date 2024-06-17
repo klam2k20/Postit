@@ -76,7 +76,7 @@ const ResetPasswordForm: React.FC = () => {
                 className="border-zinc-900"
               />
               {errors.password && (
-                <p className="-mt-2 text-sm text-red-500">
+                <p className="text-sm text-red-500">
                   {errors.password.message}
                 </p>
               )}
@@ -98,7 +98,7 @@ const ResetPasswordForm: React.FC = () => {
                 className="border-zinc-900"
               />
               {errors.confirmPassword && (
-                <p className="-mt-2 text-sm text-red-500">
+                <p className="text-sm text-red-500">
                   {errors.confirmPassword.message}
                 </p>
               )}

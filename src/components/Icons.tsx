@@ -1,6 +1,29 @@
 import { IconBaseProps } from "react-icons";
+import { FiAlertCircle } from "react-icons/fi";
+import { PiEye, PiEyeClosed } from "react-icons/pi";
+import { LuLoader2 } from "react-icons/lu";
+import { BsArrowRightSquare } from "react-icons/bs";
+import { FcGoogle } from "react-icons/fc";
+import { FaGithub } from "react-icons/fa";
+import { FiUser } from "react-icons/fi";
+import { AiOutlinePlusCircle } from "react-icons/ai";
+import { GoHome } from "react-icons/go";
+import { IoSettingsOutline } from "react-icons/io5";
+import { LiaStickyNote } from "react-icons/lia";
 
 export const Icons = {
+  plus: (props: IconBaseProps) => <AiOutlinePlusCircle {...props} />,
+  settings: (props: IconBaseProps) => <IoSettingsOutline {...props} />,
+  note: (props: IconBaseProps) => <LiaStickyNote {...props} />,
+  home: (props: IconBaseProps) => <GoHome {...props} />,
+  user: (props: IconBaseProps) => <FiUser {...props} />,
+  github: (props: IconBaseProps) => <FaGithub {...props} />,
+  google: (props: IconBaseProps) => <FcGoogle {...props} />,
+  signOut: (props: IconBaseProps) => <BsArrowRightSquare {...props} />,
+  loader: (props: IconBaseProps) => <LuLoader2 {...props} />,
+  alertCircle: (props: IconBaseProps) => <FiAlertCircle {...props} />,
+  piEye: (props: IconBaseProps) => <PiEye {...props} />,
+  piEyeClosed: (props: IconBaseProps) => <PiEyeClosed {...props} />,
   logo: (props: IconBaseProps) => (
     <svg
       version="1.0"

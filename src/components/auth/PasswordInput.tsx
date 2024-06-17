@@ -1,13 +1,13 @@
 "use client";
 
-import * as React from "react";
+import { forwardRef } from "react";
 import { useState } from "react";
-import { PiEye, PiEyeClosed } from "react-icons/pi";
+import { Icons } from "../Icons";
 
 interface IPasswordInputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {}
 
-const PasswordInput = React.forwardRef<HTMLInputElement, IPasswordInputProps>(
+const PasswordInput = forwardRef<HTMLInputElement, IPasswordInputProps>(
   ({ ...props }, ref) => {
     const [show, setShow] = useState(false);
     return (
@@ -22,12 +22,12 @@ const PasswordInput = React.forwardRef<HTMLInputElement, IPasswordInputProps>(
         />
 
         {show ? (
-          <PiEyeClosed
+          <Icons.piEyeClosed
             className="h-4 w-4 cursor-pointer"
             onClick={() => setShow(false)}
           />
         ) : (
-          <PiEye
+          <Icons.piEye
             className="h-4 w-4 cursor-pointer"
             onClick={() => setShow(true)}
           />

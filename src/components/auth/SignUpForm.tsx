@@ -13,7 +13,7 @@ import FormError from "./FormError";
 import FormSuccess from "./FormSucess";
 import SocialLogins from "./SocialLogins";
 import { PasswordInput } from "./PasswordInput";
-import { ReloadIcon } from "@radix-ui/react-icons";
+import { Icons } from "../Icons";
 
 //TODO: switch from formerror and formsuccess to toast
 // email
@@ -81,9 +81,7 @@ const SignUpForm: React.FC = () => {
               className="border-zinc-900"
             />
             {errors.name && (
-              <p className="-mt-2 text-sm text-red-500">
-                {errors.name.message}
-              </p>
+              <p className="text-sm text-red-500">{errors.name.message}</p>
             )}
           </div>
 
@@ -100,9 +98,7 @@ const SignUpForm: React.FC = () => {
               className="border-zinc-900"
             />
             {errors.email && (
-              <p className="-mt-2 text-sm text-red-500">
-                {errors.email.message}
-              </p>
+              <p className="text-sm text-red-500">{errors.email.message}</p>
             )}
           </div>
 
@@ -112,9 +108,7 @@ const SignUpForm: React.FC = () => {
             </label>
             <PasswordInput {...register("password")} disabled={isSubmitting} />
             {errors.password && (
-              <p className="-mt-2 text-sm text-red-500">
-                {errors.password.message}
-              </p>
+              <p className="text-sm text-red-500">{errors.password.message}</p>
             )}
           </div>
 
@@ -127,7 +121,7 @@ const SignUpForm: React.FC = () => {
               disabled={isSubmitting}
             />
             {errors.confirmPassword && (
-              <p className="-mt-2 text-sm text-red-500">
+              <p className="text-sm text-red-500">
                 {errors.confirmPassword.message}
               </p>
             )}
@@ -138,7 +132,9 @@ const SignUpForm: React.FC = () => {
         <FormSuccess message={success} />
 
         <Button type="submit" disabled={isSubmitting} className="w-full">
-          {isSubmitting && <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />}
+          {isSubmitting && (
+            <Icons.loader className="mr-2 h-4 w-4 animate-spin" />
+          )}
           Sign Up
         </Button>
       </form>

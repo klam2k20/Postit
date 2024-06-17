@@ -1,7 +1,6 @@
 import { signIn } from "next-auth/react";
 import { Button } from "../ui/Button";
-import { FcGoogle } from "react-icons/fc";
-import { FaGithub } from "react-icons/fa";
+import { Icons } from "../Icons";
 
 interface ISocialLoginsProps {
   isSubmitting: boolean;
@@ -27,9 +26,9 @@ const SocialLogins: React.FC<ISocialLoginsProps> = ({
           onClick={() => onClick(s)}
         >
           {s == "Google" ? (
-            <FcGoogle className="mr-2 h-4 w-4" />
+            <Icons.google className="mr-2 h-4 w-4" />
           ) : (
-            <FaGithub className="mr-2 h-4 w-4" />
+            <Icons.github className="mr-2 h-4 w-4" />
           )}
           {`Sign in with ${s}`}
         </Button>
