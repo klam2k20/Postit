@@ -45,7 +45,7 @@ const SignUpForm: React.FC = () => {
     }
   };
 
-  return (
+  return !success ? (
     <>
       <form
         onSubmit={handleSubmit(onSubmit)}
@@ -112,6 +112,7 @@ const SignUpForm: React.FC = () => {
             <PasswordInput
               {...register("confirmPassword")}
               disabled={isSubmitting}
+              id="confirmPassword"
             />
             {errors.confirmPassword && (
               <p className="text-sm text-red-500">
@@ -133,6 +134,16 @@ const SignUpForm: React.FC = () => {
       </form>
       <SocialLogins isSubmitting={isSubmitting} />
     </>
+  ) : (
+    <div className="flex w-full flex-col items-start justify-center gap-y-6 text-sm">
+      <p className="text-zinc-700">{success}</p>
+      <Link
+        href={"/sign-in"}
+        className={cn(buttonVariants({ variant: "default" }), "w-full")}
+      >
+        Return to Sign In
+      </Link>
+    </div>
   );
 };
 

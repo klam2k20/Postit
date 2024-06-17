@@ -4,7 +4,12 @@ import { Button } from "@/components/ui/Button";
 const NewVerification: React.FC = (props) => {
   return (
     <main className="flex min-h-screen items-center justify-center">
-      <VerificationForm />
+      <div className="flex w-[400px] flex-col items-start justify-center gap-y-4">
+        <h1 className="text-2xl font-semibold leading-none">
+          Account Verification
+        </h1>
+        <VerificationForm />
+      </div>
     </main>
   );
 };

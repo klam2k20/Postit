@@ -41,7 +41,7 @@ export const signUp = async (values: unknown) => {
     const token = await createVerificationToken(email);
     await sendVerificationEmail(email, token.token)
 
-    return { success: 'Registration successful! Please check your email to verify your account.' }
+    return { success: 'Thanks for signing up for Postit! Please check your email to verify your account.' }
   } catch (e) {
     console.error('Register Error:', e);
     return { error: 'Something went wrong on our end. Please try again later.' }

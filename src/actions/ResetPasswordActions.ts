@@ -4,6 +4,7 @@ import db from "@/lib/db";
 import { getUserByEmail } from "@/lib/prisma";
 import { resetPasswordSchema } from "@/lib/types";
 import bcrypt from 'bcryptjs';
+import { redirect } from "next/navigation";
 
 export const resetPassword = async (values: unknown, token: string) => {
   const validatedFields = resetPasswordSchema.safeParse(values);
@@ -35,7 +36,6 @@ export const resetPassword = async (values: unknown, token: string) => {
     await db.forgotPasswordToken.delete({
       where: { id: forgotPasswordToken.id }
     })
-
     return { success: 'New password set successfully.' }
   } catch (e) {
     console.error('Reset Password Error: ', e);

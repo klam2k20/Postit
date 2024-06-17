@@ -35,7 +35,7 @@ export const verifyToken = async (token: string) => {
       }
     })
 
-    return { success: 'Email verified' }
+    return { success: 'Your email has been successfully verified. Welcome to Postit!' }
   } catch (e) {
     console.error('Verification Error:', e);
     return { error: 'Something went wrong on our end. Please try again later.' }
