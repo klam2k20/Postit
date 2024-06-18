@@ -1,7 +1,6 @@
 "use client";
 
-import { forwardRef } from "react";
-import { useState } from "react";
+import { forwardRef, useState } from "react";
 import { Icons } from "../Icons";
 
 interface IPasswordInputProps

@@ -1,6 +1,5 @@
-import * as React from "react";
-import { DropdownMenuItem } from "../ui/DropdownMenu";
 import Link from "next/link";
+import { DropdownMenuItem } from "../ui/DropdownMenu";
 
 interface IUserMenuItemProps {
   icon: React.ReactNode;

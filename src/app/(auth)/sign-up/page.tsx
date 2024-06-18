@@ -1,6 +1,6 @@
 import SignUpForm from "@/components/auth/SignUpForm";
 
-//todo refactor to components for things like loader button or success message with button
+//todo refactor to components for success message with button
 export default function SignUp() {
   return (
     <main className="flex min-h-screen items-center justify-center">

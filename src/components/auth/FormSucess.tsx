@@ -1,13 +1,21 @@
+import { cn } from "@/lib/utils";
+import Link from "next/link";
+import { buttonVariants } from "../ui/Button";
+
 interface IFormSuccessProps {
-  message?: string;
+  message: string;
 }
 
 const FormSuccess: React.FC<IFormSuccessProps> = ({ message }) => {
-  if (!message) return null;
-
   return (
-    <div className="flex w-full items-center gap-x-2 rounded-md bg-emerald-500/15 p-3 text-sm text-emerald-500">
-      <p>{message}</p>
+    <div className="flex w-full flex-col items-start justify-center gap-y-6 text-sm">
+      <p className="text-zinc-700">{message}</p>
+      <Link
+        href={"/sign-in"}
+        className={cn(buttonVariants({ variant: "default" }), "w-full")}
+      >
+        Return to Sign In
+      </Link>
     </div>
   );
 };

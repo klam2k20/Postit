@@ -1,6 +1,5 @@
 import { User } from "next-auth";
-import UserAvatar from "./UserAvatar";
-import UserMenuItem from "./UserMenuItem";
+import { Icons } from "../Icons";
 import SignOutBtn from "../auth/SignOutBtn";
 import {
   DropdownMenu,
@@ -9,7 +8,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "../ui/DropdownMenu";
-import { Icons } from "../Icons";
+import UserAvatar from "./UserAvatar";
+import UserMenuItem from "./UserMenuItem";
 
 interface IUserMenuProps {
   user: Pick<User, "name" | "image" | "email">;

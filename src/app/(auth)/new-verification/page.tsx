@@ -1,5 +1,5 @@
 import VerificationForm from "@/components/auth/VerificationForm";
-import { Button } from "@/components/ui/Button";
+import { Suspense } from "react";
 
 const NewVerification: React.FC = (props) => {
   return (
@@ -8,7 +8,9 @@ const NewVerification: React.FC = (props) => {
         <h1 className="text-2xl font-semibold leading-none">
           Account Verification
         </h1>
-        <VerificationForm />
+        <Suspense>
+          <VerificationForm />
+        </Suspense>
       </div>
     </main>
   );

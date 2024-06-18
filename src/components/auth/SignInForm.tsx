@@ -8,9 +8,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Icons } from "../Icons";
-import { Button, buttonVariants } from "../ui/Button";
+import { buttonVariants } from "../ui/Button";
 import { Input } from "../ui/Input";
+import SubmitBtn from "../ui/SubmitBtn";
 import FormError from "./FormError";
 import { PasswordInput } from "./PasswordInput";
 import SocialLogins from "./SocialLogins";
@@ -96,13 +96,7 @@ const SignInForm: React.FC = () => {
         </div>
 
         <FormError message={error} />
-
-        <Button type="submit" disabled={isSubmitting} className="w-full">
-          {isSubmitting && (
-            <Icons.loader className="mr-2 h-4 w-4 animate-spin" />
-          )}
-          Sign In
-        </Button>
+        <SubmitBtn isSubmitting={isSubmitting}>Sign In</SubmitBtn>
       </form>
       <SocialLogins isSubmitting={isSubmitting} />
     </>

@@ -7,13 +7,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Button, buttonVariants } from "../ui/Button";
+import { buttonVariants } from "../ui/Button";
 import { Input } from "../ui/Input";
+import SubmitBtn from "../ui/SubmitBtn";
 import FormError from "./FormError";
 import FormSuccess from "./FormSucess";
-import SocialLogins from "./SocialLogins";
 import { PasswordInput } from "./PasswordInput";
-import { Icons } from "../Icons";
+import SocialLogins from "./SocialLogins";
 
 const SignUpForm: React.FC = () => {
   const [error, setError] = useState<string | undefined>();
@@ -123,27 +123,13 @@ const SignUpForm: React.FC = () => {
         </div>
 
         <FormError message={error} />
-        <FormSuccess message={success} />
 
-        <Button type="submit" disabled={isSubmitting} className="w-full">
-          {isSubmitting && (
-            <Icons.loader className="mr-2 h-4 w-4 animate-spin" />
-          )}
-          Sign Up
-        </Button>
+        <SubmitBtn isSubmitting={isSubmitting}>Sign Up</SubmitBtn>
       </form>
       <SocialLogins isSubmitting={isSubmitting} />
     </>
   ) : (
-    <div className="flex w-full flex-col items-start justify-center gap-y-6 text-sm">
-      <p className="text-zinc-700">{success}</p>
-      <Link
-        href={"/sign-in"}
-        className={cn(buttonVariants({ variant: "default" }), "w-full")}
-      >
-        Return to Sign In
-      </Link>
-    </div>
+    <FormSuccess message={success} />
   );
 };
 

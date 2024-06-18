@@ -1,6 +1,6 @@
 import { signIn } from "next-auth/react";
-import { Button } from "../ui/Button";
 import { Icons } from "../Icons";
+import { Button } from "../ui/Button";
 
 interface ISocialLoginsProps {
   isSubmitting: boolean;

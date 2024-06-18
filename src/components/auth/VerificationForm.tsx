@@ -1,13 +1,11 @@
 "use client";
 
 import { verifyToken } from "@/actions/VerificationActions";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useState } from "react";
-import { Button, buttonVariants } from "../ui/Button";
+import SubmitBtn from "../ui/SubmitBtn";
 import FormError from "./FormError";
-import Link from "next/link";
-import { cn } from "@/lib/utils";
-import { Icons } from "../Icons";
+import FormSuccess from "./FormSucess";
 
 const VerificationForm: React.FC = () => {
   const [error, setError] = useState<string | undefined>();
@@ -50,21 +48,10 @@ const VerificationForm: React.FC = () => {
       </p>
 
       <FormError message={error} />
-      <Button type="submit" className="w-full" disabled={isSubmitting}>
-        {isSubmitting && <Icons.loader className="mr-2 h-4 w-4 animate-spin" />}
-        Verify
-      </Button>
+      <SubmitBtn isSubmitting={isSubmitting}>Verify</SubmitBtn>
     </form>
   ) : (
-    <div className="flex w-full flex-col items-start justify-center gap-y-6 text-sm">
-      <p className="text-zinc-700">{success}</p>
-      <Link
-        href={"/sign-in"}
-        className={cn(buttonVariants({ variant: "default" }), "w-full")}
-      >
-        Return to Sign In
-      </Link>
-    </div>
+    <FormSuccess message={success} />
   );
 };
 

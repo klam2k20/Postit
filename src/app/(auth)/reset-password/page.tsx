@@ -1,4 +1,5 @@
 import ResetPasswordForm from "@/components/auth/ResetPasswordForm";
+import { Suspense } from "react";
 
 const ResetPassowrd: React.FC = () => {
   return (
@@ -7,7 +8,9 @@ const ResetPassowrd: React.FC = () => {
         <h1 className="text-2xl font-semibold leading-none">
           Reset your Password
         </h1>
-        <ResetPasswordForm />
+        <Suspense>
+          <ResetPasswordForm />
+        </Suspense>
       </div>
     </main>
   );

@@ -6,14 +6,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Button, buttonVariants } from "../ui/Button";
-import { Input } from "../ui/Input";
+import SubmitBtn from "../ui/SubmitBtn";
 import FormError from "./FormError";
 import FormSuccess from "./FormSucess";
-import Link from "next/link";
-import { cn } from "@/lib/utils";
 import { PasswordInput } from "./PasswordInput";
-import { Icons } from "../Icons";
 
 const ResetPasswordForm: React.FC = () => {
   const [error, setError] = useState<string | undefined>();
@@ -90,21 +86,10 @@ const ResetPasswordForm: React.FC = () => {
         </div>
       </div>
       <FormError message={error} />
-      <Button type="submit" disabled={isSubmitting} className="w-full">
-        {isSubmitting && <Icons.loader className="mr-2 h-4 w-4 animate-spin" />}
-        Reset Password
-      </Button>
+      <SubmitBtn isSubmitting={isSubmitting}>Reset Password</SubmitBtn>
     </form>
   ) : (
-    <div className="flex w-full flex-col items-start justify-center gap-y-6 text-sm">
-      <p className="text-zinc-700">{success}</p>
-      <Link
-        href={"/sign-in"}
-        className={cn(buttonVariants({ variant: "default" }), "w-full")}
-      >
-        Return to Sign In
-      </Link>
-    </div>
+    <FormSuccess message={success} />
   );
 };
 

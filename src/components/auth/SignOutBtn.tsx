@@ -1,8 +1,8 @@
 "use client";
 
 import { signOut } from "next-auth/react";
-import { DropdownMenuItem } from "../ui/DropdownMenu";
 import { Icons } from "../Icons";
+import { DropdownMenuItem } from "../ui/DropdownMenu";
 
 const SignOutBtn: React.FC = () => {
   const handleSignOut = (e: Event) => {

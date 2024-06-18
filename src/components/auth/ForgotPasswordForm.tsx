@@ -2,15 +2,13 @@
 
 import { forgotPassword } from "@/actions/ForgotPasswordActions";
 import { TForgotPasswordSchema, forgotPasswordSchema } from "@/lib/types";
-import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
-import Link from "next/link";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Button, buttonVariants } from "../ui/Button";
 import { Input } from "../ui/Input";
+import SubmitBtn from "../ui/SubmitBtn";
 import FormError from "./FormError";
-import { Icons } from "../Icons";
+import FormSuccess from "./FormSucess";
 
 const ForgotPasswordForm: React.FC = () => {
   const [error, setError] = useState<string | undefined>();
@@ -68,21 +66,12 @@ const ForgotPasswordForm: React.FC = () => {
         )}
       </div>
       <FormError message={error} />
-      <Button type="submit" disabled={isSubmitting} className="w-full">
-        {isSubmitting && <Icons.loader className="mr-2 h-4 w-4 animate-spin" />}
+      <SubmitBtn isSubmitting={isSubmitting}>
         Send Password Reset Link
-      </Button>
+      </SubmitBtn>
     </form>
   ) : (
-    <div className="flex w-full flex-col items-start justify-center gap-y-6 text-sm">
-      <p className="text-zinc-700">{success}</p>
-      <Link
-        href={"/sign-in"}
-        className={cn(buttonVariants({ variant: "default" }), "w-full")}
-      >
-        Return to Sign In
-      </Link>
-    </div>
+    <FormSuccess message={success} />
   );
 };
 

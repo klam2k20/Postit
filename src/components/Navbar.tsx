@@ -1,9 +1,9 @@
+import { auth } from "@/auth";
 import { cn } from "@/lib/utils";
 import { Playfair_Display } from "next/font/google";
 import Link from "next/link";
 import { Icons } from "./Icons";
 import { buttonVariants } from "./ui/Button";
-import { auth } from "@/auth";
 import UserMenu from "./userMenu/UserMenu";
 
 const playfair = Playfair_Display({ subsets: ["latin"] });
