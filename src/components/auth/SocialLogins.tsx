@@ -6,9 +6,7 @@ interface ISocialLoginsProps {
   isSubmitting: boolean;
 }
 
-const SocialLogins: React.FC<ISocialLoginsProps> = ({
-  isSubmitting,
-}: ISocialLoginsProps) => {
+const SocialLogins: React.FC<ISocialLoginsProps> = ({ isSubmitting }) => {
   const socials = ["Google", "GitHub"];
 
   const onClick = async (social: string) => {

@@ -11,7 +11,7 @@ interface IUserAvatarProps extends AvatarProps {
 const UserAvatar: React.FunctionComponent<IUserAvatarProps> = ({
   user,
   className,
-}: IUserAvatarProps) => {
+}) => {
   return (
     <Avatar className={cn("border border-zinc-900", className)}>
       <AvatarImage src={user?.image || ""} alt="User Avatar" />

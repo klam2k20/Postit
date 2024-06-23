@@ -7,11 +7,7 @@ interface IUserMenuItemProps {
   link: string;
 }
 
-const UserMenuItem: React.FC<IUserMenuItemProps> = ({
-  icon,
-  label,
-  link,
-}: IUserMenuItemProps) => {
+const UserMenuItem: React.FC<IUserMenuItemProps> = ({ icon, label, link }) => {
   return (
     <DropdownMenuItem asChild>
       <div className="flex !items-end justify-start gap-2">
